@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>iframe-multipart</title>
+  <script type="text/javascript" src="build.js"></script>
+</head>
+<body>
+  <form id="form" action="/" method="post" enctype="multipart/form-data">
+    <input type="text" name="hello" value="world" />
+    <input type="text" name="it" value="works" />
+    <input type="file" name="file" />
+    <input type="submit" value="send" />
+  </form>
+  <pre id="response"></pre>
+  <script type="text/javascript">
+    var multipart = require('iframe-multipart');
+    var form = document.getElementById('form');
+    var pre = document.getElementById('response');
+    
+    form.onsubmit = function (e){
+      e = e || window.event;
+      if (e.preventDefault) e.preventDefault();
+      else e.returnValue = false;
+      
+      multipart(form, function (err, res) {
+        pre.textContent = pre.innerText = res;
+      });
+    };
+  </script>
+</body>
+</html>

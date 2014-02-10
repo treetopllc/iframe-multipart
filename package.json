@@ -1,0 +1,9 @@
+{
+  "name": "iframe-multipart",
+  "repo": "eivindfjeldstad/iframe-multipart",
+  "version": "0.0.1",
+  "devDependencies": {
+    "express": "~3.4.8",
+    "busboy": "0.0.15"
+  }
+}
