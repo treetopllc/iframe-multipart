@@ -20,7 +20,7 @@ submit(form, function (err, res) {
 });
 ```
 
-### Gotchas
+## Gotchas
 The response type should always be ```text/html```. See the `example` folder.
 If you are responding with user generated content you should probably wrap it in a `<textarea>` for security reasons.
 
