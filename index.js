@@ -20,10 +20,16 @@ module.exports = multipart;
 function multipart (form, fn) {
   var name = uid();
   
+  // append a flag to url
+  var action = form.action;
+  action += ~action.indexOf('?')
+    ? '&iframe=1'
+    : '?iframe=1';
+  
   var shadow = document.createElement('form');
   shadow.style.display = 'none';
   shadow.target = name;
-  shadow.action = form.action;
+  shadow.action = action;
   shadow.method = 'POST'
   shadow.encoding = shadow.enctype = 'multipart/form-data';
   
