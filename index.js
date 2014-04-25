@@ -13,18 +13,25 @@ module.exports = multipart;
  * Submit `form` and call `fn`
  *
  * @param {Element} form
+ * @param {Object} opts
  * @param {Function} fn
  * @api public
  */
 
-function multipart (form, fn) {
+function multipart (form, opts, fn) {
+  if (typeof opts === 'function') {
+    fn = opts;
+    opts = {param: 'iframe=1'};
+  }
   var name = uid();
   
   // append a flag to url
   var action = form.action;
-  action += ~action.indexOf('?')
-    ? '&iframe=1'
-    : '?iframe=1';
+  if (opts.param) {
+    action += ~action.indexOf('?')
+      ? '&' + opts.param
+      : '?' + opts.param;
+  }
   
   var shadow = document.createElement('form');
   shadow.style.display = 'none';
@@ -116,6 +123,7 @@ function multipart (form, fn) {
     try {
       var win = iframe.contentDocument || iframe.contentWindow;
       var res = win.body || win.document.body;
+      if (res.innerHTML) var innerHTML = res.innerHTML;
     } catch (e) {
       err = e;
     }
@@ -123,6 +131,6 @@ function multipart (form, fn) {
     document.body.removeChild(shadow);
     events.unbind(iframe, 'load', done);
     
-    fn(err, res.innerHTML);
+    fn(err, innerHTML, res);
   }
 }
