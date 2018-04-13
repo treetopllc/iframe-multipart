@@ -3,7 +3,7 @@
   "repo": "eivindfjeldstad/iframe-multipart",
   "version": "0.1.0",
   "devDependencies": {
-    "express": "~3.4.8",
-    "busboy": "0.0.15"
+    "express": "~4.16.3",
+    "busboy": "0.2.14"
   }
 }
