@@ -1,13 +1,12 @@
 {
   "name": "iframe-multipart",
-  "repo": "eivindfjeldstad/iframe-multipart",
+  "repo": "treetopllc/iframe-multipart",
   "description": "multipart transport for old browsers",
   "version": "0.1.0",
   "keywords": ["multipart", "formdata", "upload", "iframe"],
   "dependencies": {
     "component/value": "*",
     "component/event": "*",
-    "matthewmueller/uid": "*",
     "yields/submittable": "*"
   },
   "license": "MIT",
