@@ -2,12 +2,13 @@
   "name": "iframe-multipart",
   "repo": "treetopllc/iframe-multipart",
   "description": "multipart transport for old browsers",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": ["multipart", "formdata", "upload", "iframe"],
   "dependencies": {
     "component/value": "*",
     "component/event": "*",
-    "yields/submittable": "*"
+    "yields/submittable": "*",
+    "treetopllc/uid": "*"
   },
   "license": "MIT",
   "main": "index.js",

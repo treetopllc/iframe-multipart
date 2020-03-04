@@ -24,7 +24,7 @@ function multipart (form, opts, fn) {
     opts = {param: 'iframe=1'};
   }
   var name = uid();
-  
+
   // append a flag to url
   var action = form.action;
   if (opts.param) {
@@ -32,37 +32,37 @@ function multipart (form, opts, fn) {
       ? '&' + opts.param
       : '?' + opts.param;
   }
-  
+
   var shadow = document.createElement('form');
   shadow.style.display = 'none';
   shadow.target = name;
   shadow.action = action;
   shadow.method = 'POST'
   shadow.encoding = shadow.enctype = 'multipart/form-data';
-  
+
   // thanks, IE!
   var div = document.createElement('div');
   div.innerHTML = '<iframe name="' + name + '" />';
-  
+
   var iframe = div.firstChild;
   iframe.src = 'javascript:false';
   events.bind(iframe, 'load', ready);
   shadow.appendChild(iframe);
   document.body.appendChild(shadow);
-  
+
   /**
    * Fires when the iframe is loaded
    *
    * @api private
    */
-  
+
   function ready () {
     var inputs = [];
     var els = form.elements;
-    
+
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
-      
+
       // file input
       if (el.type == 'file') {
         var clone = el.cloneNode(false);
@@ -72,7 +72,7 @@ function multipart (form, opts, fn) {
         inputs.push([clone, el]);
         continue;
       }
-    
+
       // regular input
       if (submittable(el)) {
         var clone = document.createElement('input');
@@ -82,21 +82,21 @@ function multipart (form, opts, fn) {
         shadow.appendChild(clone);
       }
     }
-    
+
     events.unbind(iframe, 'load', ready);
     events.bind(iframe, 'load', done);
-    
+
     shadow.submit();
     restore(inputs);
   }
-  
+
   /**
    * Restore original file inputs
    *
    * @param {Array} inputs
    * @api private
    */
-  
+
   function restore (inputs) {
     for (var i = 0; i < inputs.length; i++) {
       var clone = inputs[i][0];
@@ -105,21 +105,21 @@ function multipart (form, opts, fn) {
       clone.parentNode.removeChild(clone);
     }
   }
-  
+
   /**
    * Fires when the response is ready
    *
    * @api private
    */
-  
+
   function done () {
     var err;
-    
+
     // fix for endless progress bar (IE)
     var fix = document.createElement('iframe');
     fix.src = 'javascript:false';
     shadow.appendChild(fix);
-    
+
     try {
       var win = iframe.contentDocument || iframe.contentWindow;
       var res = win.body || win.document.body;
@@ -127,10 +127,10 @@ function multipart (form, opts, fn) {
     } catch (e) {
       err = e;
     }
-    
+
     document.body.removeChild(shadow);
     events.unbind(iframe, 'load', done);
-    
+
     fn(err, innerHTML, res);
   }
 }
